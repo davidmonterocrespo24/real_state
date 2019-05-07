@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="Wizard_set_quota">
+      <field name="name">Set Quota</field>
+      <field name="model">wizard.set_quota</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="quota"/>
+          </group>
+          <footer>
+            <button name="set_quota" type="object" string="Confirm"/>
+            or
+            <button string="Cancel" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <act_window id="lauch_wizard_set_quota"
+            name="Set Quota to"
+            src_model="real.estate.contract"
+            res_model="wizard.set_quota"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+
+  </data>
+</odoo>

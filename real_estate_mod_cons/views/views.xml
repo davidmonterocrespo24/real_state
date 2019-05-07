@@ -1,0 +1,75 @@
+<odoo>
+  <data>
+
+    <template id="assets_backend" name="many2many_checkboxes6c" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript"
+                src="/real_estate_mod_cons/static/src/js/widget.js"></script>
+      </xpath>
+    </template>
+
+    <record model="ir.ui.view" id="mod_cons_list_view">
+      <field name="name">Mod Cons List</field>
+      <field name="model">real.estate.mod.cons</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="mod_cons_action_window">
+      <field name="name">Mod Cons</field>
+      <field name="res_model">real.estate.mod.cons</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <record model="ir.ui.view" id="inherit_property_form_view">
+      <field name="name">Property</field>
+      <field name="model">real.estate.property</field>
+      <field name="inherit_id" ref="real_estate.property_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr='//notebook' position="inside">
+          <page string="Mod Cons">
+            <field name="mod_cons_ids" widget="many2many_checkboxesSixc"/>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="real_estate_mod_cons.action_server">
+      <field name="name">real_estate_mod_cons server</field>
+      <field name="model_id" ref="model_real_estate_mod_cons_real_estate_mod_cons"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="real_estate_mod_cons" id="real_estate_mod_cons.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="real_estate_mod_cons.menu_1" parent="real_estate_mod_cons.menu_root"/>
+    <menuitem name="Menu 2" id="real_estate_mod_cons.menu_2" parent="real_estate_mod_cons.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="real_estate_mod_cons.menu_1_list" parent="real_estate_mod_cons.menu_1"
+              action="real_estate_mod_cons.action_window"/>
+    <menuitem name="Server to list" id="real_estate_mod_cons" parent="real_estate_mod_cons.menu_2"
+              action="real_estate_mod_cons.action_server"/>
+    -->
+  </data>
+</odoo>
