@@ -22,6 +22,7 @@
         'data/product_data.xml',
         'data/sequence.xml',
         'security/ir.model.access.csv',
+        'security/ir_security.xml',
         'views/views.xml',
         'views/report_paymentdetails_template.xml',
         'views/ir_config_settings.xml',
