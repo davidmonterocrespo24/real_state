@@ -1,0 +1,154 @@
+<odoo>
+    <report
+            id="comision_report"
+            model="real.estate.comision"
+            string="Comision"
+            report_type="qweb-pdf"
+            name="real_estate_comision.comision"
+            file="real_estate_comision.comision"
+            print_report_name="'Comision desde %s al %s' % (object.date_from, object.date_to)"/>
+
+    <template id="comision">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Reporte Comision de Ventas - RealEstate</h2>
+                        <p>
+                            Desde: <span t-field="o.date_from"/>
+                            Hasta: <span t-field="o.date_to"/>
+                        </p>
+
+                        <t t-set="by_vendedor" t-value="o.get_by_vendedor(o)"/>
+
+                        <h3>Vendedores</h3>
+                        <table class="table table-sm" style="font-size:x-small;">
+                            <t t-foreach="by_vendedor" t-as="v">
+                                <tr>
+                                    <th>Contrato</th>
+                                    <th>Fecha</th>
+                                    <th>Representante</th>
+                                    <th>Cliente</th>
+                                    <th>Proyecto</th>
+                                    <th>Edificio</th>
+                                    <th>Apto</th>
+                                    <th class="text-right">Mt2</th>
+                                    <th class="text-right">Valor Propiedad</th>
+                                    <th class="text-right">Tasa</th>
+                                    <th class="text-right">Valor</th>
+                                </tr>
+
+                                <t t-set="contador" t-value="0"/>
+                                <t t-set="valor_total" t-value="0"/>
+
+                                <tr t-foreach="v_value" t-as="l">
+                                    <t t-set="contador" t-value="contador + 1"/>
+                                    <t t-set="valor_total"
+                                       t-value="valor_total + l.amount"/>
+
+                                    <td>
+                                        <span t-esc="l.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.date"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.representante_id.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.contract_id.partner_id.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.contract_id.property_id.project_id.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.contract_id.property_id.edificio or ''"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.contract_id.property_id.apto or ''"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="l.contract_id.property_id.mt2 or ''"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-esc="l.property_amount"
+                                              t-options='{"widget": "monetary", "display_currency": l.contract_id.property_currency_id}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="o.get_currency_rate(l.contract_id.property_currency_id, l.date)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="l.amount"
+                                              t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <thead>
+                                    <td t-if="v" colspan="2">
+                                        <span t-esc="v.name"/>
+                                    </td>
+                                    <td t-else="" colspan="2">
+                                        <span>Indefinido</span>
+                                    </td>
+                                    <td>Cnt. de Contratos:
+                                        <t t-esc="contador"/>
+                                    </td>
+                                    <td colspan="2">Valor total
+                                        <t t-esc="valor_total"
+                                           t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                    <td colspan="2">
+                                        Comision:
+
+                                        <t t-set="comision"
+                                           t-value="o.get_comision(contador, valor_total, 'vendedor')"/>
+                                        <span t-if="comision">
+                                            <t t-esc="comision"
+                                               t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                        </span>
+                                        <span t-else="">
+                                            No cumplio meta
+                                        </span>
+                                    </td>
+                                </thead>
+                            </t>
+                        </table>
+
+                        <h3>Gerente de Ventas</h3>
+                        <t t-set="by_gerente" t-value="o.get_by_gerente(o)"/>
+                        <table class="table table-sm" style="font-size:x-small;">
+                            <thead>
+                                <td t-if="by_gerente[0]" colspan="2">
+                                    <span t-esc="by_gerente[0]"/>
+                                </td>
+                                <td t-else="" colspan="2">
+                                    <span>Indefinido</span>
+                                </td>
+                                <td>Cnt. de Contratos:
+                                    <t t-esc="by_gerente[1]"/>
+                                </td>
+                                <td colspan="2">Valor total
+                                    <t t-esc="by_gerente[2]"
+                                       t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                                <td colspan="2">
+                                    Comision:
+                                    <span t-if="by_gerente[3]">
+                                        <t t-esc="by_gerente[3]"
+                                           t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </span>
+                                    <span t-else="">
+                                        No cumplio meta
+                                    </span>
+                                </td>
+                            </thead>
+                        </table>
+
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

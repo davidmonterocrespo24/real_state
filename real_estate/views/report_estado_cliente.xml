@@ -1,0 +1,306 @@
+<odoo>
+    <report
+        id="report_estado_cliente"
+        model="real.estate.contract"
+        string="Estado del Cliente"
+        report_type="qweb-pdf"
+        name="real_estate.estado_cliente"
+        file="real_estate.estado_cliente"
+        print_report_name="'Estado del Cliente - %s' % (object.partner_id.name)"/>
+
+    <template id="estado_cliente">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Estado del Cliente</h2>
+
+                        <div class="row">
+                            <div class="col-7 ">
+                                <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "vat"], "no_marker": False}'/>
+                                <span>
+                                    <strong>Co-comprador:</strong>
+                                    <span t-field="o.partner2_id.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Apoderado:</strong>
+                                    <span t-field="o.apoderado.name"/>
+                                </span>
+                            </div>
+                            <div class="col-5">
+                                <span>
+                                    <strong>Ref:</strong>
+                                    <span t-field="o.name"/>
+                                </span><br/>
+                                <span>
+                                    <strong>Proyecto:</strong>
+                                    <span t-field="o.property_id.project_id.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Etapa:</strong>
+                                    <span t-field="o.property_id.project_id.etapa"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Precio Apto:</strong>
+                                    <span t-field="o.property_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Cnt. Cuota:</strong>
+                                    <span t-field="o.num_payments"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Mora:</strong>
+                                    <span>5%</span>
+                                </span>
+                                <br/>
+                                <div>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>
+                                                <strong>Edificio:</strong>
+                                                <span t-esc="o.property_id.edificio"/>
+                                            </td>
+                                            <td>
+                                                <strong>Apto:</strong>
+                                                <span t-esc="o.property_id.apto"/>
+                                            </td>
+                                            <td>
+                                                <strong>Mts:</strong>
+                                                <span t-esc="o.property_id.mt2"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm mt32">
+                            <tr class="bg-dark">
+                                <td colspan="5">
+                                    <h4 class="text-center">Datos Cuotas/Plan de Pagos</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Cuota/Descripcion</th>
+                                <th>Fecha Vencimiento</th>
+                                <th class="text-right">Monto Cuota</th>
+                                <th class="text-right">Monto Pagado</th>
+                                <th class="text-right">Residual</th>
+                            </tr>
+
+                            <t t-set="residual" t-value="0"/>
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-set="total_paid" t-value="0"/>
+                            <t t-set="total_residual" t-value="0"/>
+                            <t t-set="descuento" t-value="0"/>
+
+                            <t t-foreach="o.quota_ids" t-as="c">
+                                <t t-set="descuento" t-value="descuento + c.discount"/>
+                                <tr>
+                                    <td>
+                                        <span t-field="c.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="c.date_due"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="'{:,.2f}'.format(c.amount)"/>
+                                        <t t-set="total_amount" t-value="total_amount + c.amount"/>
+                                    </td>
+                                    <td class="text-right">
+                                        --
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-set="residual" t-value="residual + c.amount"/>
+                                        <span t-esc="'{:,.2f}'.format(residual)"/>
+                                        <t t-set="total_residual" t-value="total_residual+c.residual"/>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="pagos(c.id)" t-as="p">
+                                    <td style="padding-left:15px;">Pago:
+                                        <span t-field="p.pago_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="p.pago_id.date"/>
+                                    </td>
+                                    <td class="text-right">
+                                        --
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="'{:,.2f}'.format(p.to_pay)"/>
+                                        <t t-set="total_paid" t-value="total_paid + p.to_pay"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-set="residual" t-value="residual - p.to_pay"/>
+                                        <span t-esc="'{:,.2f}'.format(residual)"/>
+                                        <t t-set="total_residual" t-value="total_residual + c.residual"/>
+                                    </td>
+                                </tr>
+                            </t>
+
+                             
+                            <tr t-if='descuento > 0' class="">
+                                <td colspan="4" style="padding-left:15px;">Descuento</td>
+
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(descuento)"/>
+                                </td>
+                            </tr>
+
+                            <t t-set="balance_favor" t-value="o.get_residual()"/>
+                            <tr t-if='balance_favor' class="">
+                                <td colspan="4" style="padding-left:15px;">Balance a Favor
+                                </td>
+
+                                <td class="text-right">
+                                    <t t-set="residual" t-value="balance_favor.residual"/>
+                                    <span t-esc="'{:,.2f}'.format(balance_favor.residual)"/>
+                                    <t t-set="total_residual" t-value="balance_favor.residual"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <strong>Totales</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(total_amount)"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(total_paid)"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(total_amount - total_paid - descuento)"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p style="page-break-before: always;"/>
+
+
+                        <table class="table table-sm mt32" t-if="o.extra_ids">
+                            <tr class="bg-dark">
+                                <td colspan="5">
+                                    <h4 class="text-center">Notarizaciones/Cargos Adicionales.</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Concepto/Descripcion</th>
+                                <th>Vence el</th>
+                                <th class="text-right">Monto</th>
+                            </tr>
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-foreach="o.extra_ids" t-as="m">
+                                <tr>
+                                    <td>
+                                        <span t-field="m.name"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="m.date_due"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-field="m.amount"/>
+                                        <t t-set="total_amount" t-value="total_amount+m.amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td class="text-right" colspan="2">
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(total_amount)"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm mt32" t-if="o.mora_ids">
+                            <tr class="bg-dark">
+                                <td colspan="5">
+                                    <h4 class="text-center">Moras por Pagar</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Concepto/Descripcion</th>
+                                <th>Vencio el</th>
+                                <th class="text-right">Monto Mora</th>
+                            </tr>
+                            <t t-set="mora_total_amount" t-value="0"/>
+                            <t t-foreach="o.mora_ids" t-as="m">
+                                <tr>
+                                    <td>
+                                        <span t-field="m.name"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="m.date"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-field="m.amount"/>
+                                        <t t-set="mora_total_amount" t-value="mora_total_amount+m.amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td class="text-right" colspan="2">
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(mora_total_amount)"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-set="moras_pagadas" t-value="o.get_mora_pagadas()"/>
+                        <table class="table table-sm mt32" t-if="moras_pagadas">
+                            <tr class="bg-dark">
+                                <td colspan="5">
+                                    <h4 class="text-center">Moras Pagadas</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Concepto/Descripcion</th>
+                                <th>Vencio el</th>
+                                <th class="text-right">Monto Mora</th>
+                            </tr>
+                            <t t-set="mora_total_amount" t-value="0"/>
+                            <t t-foreach="moras_pagadas" t-as="m">
+                                <tr>
+                                    <td>
+                                        <span t-field="m.name"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="m.date"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-field="m.amount"/>
+                                        <t t-set="mora_total_amount" t-value="mora_total_amount+m.amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td class="text-right" colspan="2">
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(mora_total_amount)"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

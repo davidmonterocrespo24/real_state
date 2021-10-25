@@ -1,0 +1,639 @@
+
+<odoo>
+	    <record model="ir.ui.view" id="view_real_estate_contract_form">
+	      <field name="name">view_real estate contract</field>
+	      <field name="model">real.estate.contract</field>
+	      <field name="inherit_id" ref="real_estate.contract_form_view"/>
+	      <field name="arch" type="xml">
+	        <xpath expr="//field[@name='motivo']" position="before">
+	          <field name="penalizacion"/>
+	        </xpath>
+	      </field>
+	    </record>
+
+  <!-- Docier -->
+    <!-- Desde aqui en adelante comienza los Docier -->
+    
+  <record id="docier_01_py3o_template" model="py3o.template">
+    <field name="name">17-Docier- Macro Cayena 4
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_01_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 4
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">21</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_01_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+    <record id="docier_02_py3o_template" model="py3o.template">
+    <field name="name">Docier- Macro Cayena 6
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_02_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 6
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">22</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_02_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+    <record id="docier_03_py3o_template" model="py3o.template">
+    <field name="name">Docier- Macro Cayena 9
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_03_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 9
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">23</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_03_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+    <record id="docier_04_py3o_template" model="py3o.template">
+    <field name="name">Docier- Macro Cayena 6 5to piso -1
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_04_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 6 5to piso -
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">24</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_04_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+    <record id="docier_05_py3o_template" model="py3o.template">
+    <field name="name">Docier- Macro Cayena 8 
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_05_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 8
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">25</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_05_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  <record id="docier_06_py3o_template" model="py3o.template">
+    <field name="name">Docier- Macro Cayena 1235 
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="docier_06_report_py3o" model="ir.actions.report">
+    <field name="name">Docier- Macro Cayena 1235
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">26</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="docier_06_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  <!-- Contratos -->
+    <!-- Desde aqui en adelante comienza los Contratos -->
+
+  <record id="contrato_1_py3o_template" model="py3o.template">
+    <field name="name">1- Contrato de Opcion a Compra de Inmueble fideicomiso CY Etapa 8
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_1_report_py3o" model="ir.actions.report">
+    <field name="name">1- Contrato de Opcion a Compra de Inmueble fideicomiso CY Etapa 8
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">1</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_1_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_2_py3o_template" model="py3o.template">
+    <field name="name">2- Carta Contrato Fideicomiso CY Etapa 8
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_2_report_py3o" model="ir.actions.report">
+    <field name="name">2- Carta Contrato Fideicomiso CY Etapa 8
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">2</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_2_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_3_py3o_template" model="py3o.template">
+    <field name="name">3-Poder Notarial Fideicomiso Las Cayenas  Etapa 8
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_3_report_py3o" model="ir.actions.report">
+    <field name="name">3-Poder Notarial Fideicomiso Las Cayenas  Etapa 8
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">3</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_3_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_4_py3o_template" model="py3o.template">
+    <field name="name">4- Contrato de promesa de venta de inmueble Las Cayenas 1 DOLAR
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_4_report_py3o" model="ir.actions.report">
+    <field name="name">4- Contrato de promesa de venta de inmueble Las Cayenas 1 DOLAR
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">4</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_4_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_5_py3o_template" model="py3o.template">
+    <field name="name">5- Contrato de promesa de venta de inmueble PH Las Cayenas 1 DOLAR
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_5_report_py3o" model="ir.actions.report">
+    <field name="name">5- Contrato de promesa de venta de inmueble PH Las Cayenas 1 DOLAR
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">5</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_5_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_6_py3o_template" model="py3o.template">
+    <field name="name">6- Desistiemiento Unilaterial Sin Devolucion Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_6_report_py3o" model="ir.actions.report">
+    <field name="name">6- Desistiemiento Unilaterial Sin Devolucion Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">6</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_6_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_7_py3o_template" model="py3o.template">
+    <field name="name">7- Desistimiento por Cambio de Unidad Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_7_report_py3o" model="ir.actions.report">
+    <field name="name">7- Desistimiento por Cambio de Unidad Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">7</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_7_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_8_py3o_template" model="py3o.template">
+    <field name="name">8- Desistimiento por Cambio de Unidad y Etapa Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_8_report_py3o" model="ir.actions.report">
+    <field name="name">8- Desistimiento por Cambio de Unidad y Etapa Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">8</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_8_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_9_py3o_template" model="py3o.template">
+    <field name="name">9- Desistimiento Unilateral con Devolucion Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_9_report_py3o" model="ir.actions.report">
+    <field name="name">9- Desistimiento Unilateral con Devolucion Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">9</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_9_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_10_py3o_template" model="py3o.template">
+    <field name="name">10- Desistimieto No Aplica Prestamo con Devolucion Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_10_report_py3o" model="ir.actions.report">
+    <field name="name">10- Desistimieto No Aplica Prestamo con Devolucion Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">10</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_10_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_11_py3o_template" model="py3o.template">
+    <field name="name">11- Poder Notarial Las Cayenas PH
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_11_report_py3o" model="ir.actions.report">
+    <field name="name">11- Poder Notarial Las Cayenas PH
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">11</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_11_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_12_py3o_template" model="py3o.template">
+    <field name="name">12- Poder Notarial Las Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_12_report_py3o" model="ir.actions.report">
+    <field name="name">12- Poder Notarial Las Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">12</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_12_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_13_py3o_template" model="py3o.template">
+    <field name="name">13- Contrato de Venta Definitiva Parqueo Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_13_report_py3o" model="ir.actions.report">
+    <field name="name">13- Contrato de Venta Definitiva Parqueo Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">13</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_13_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_14_py3o_template" model="py3o.template">
+    <field name="name">14- Contrato de Venta Definitiva Inmueble Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_14_report_py3o" model="ir.actions.report">
+    <field name="name">14- Contrato de Venta Definitiva Inmueble Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">14</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_14_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_15_py3o_template" model="py3o.template">
+    <field name="name">15- Addendum Inclusion de Titular Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_15_report_py3o" model="ir.actions.report">
+    <field name="name">15- Addendum Inclusion de Titular Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">15</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_15_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+  <record id="contrato_16_py3o_template" model="py3o.template">
+    <field name="name">16-Desistimiento por Exclusion CO-Comprador Cayenas
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_16_report_py3o" model="ir.actions.report">
+    <field name="name">16-Desistimiento por Exclusion CO-Comprador Cayenas
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">16</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_16_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+  
+    
+  
+  <record id="contrato_17_py3o_template" model="py3o.template">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 1, 2 Y 3
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_17_report_py3o" model="ir.actions.report">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 1, 2 Y 3
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">17</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_17_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+    
+  
+  <record id="contrato_18_py3o_template" model="py3o.template">
+    <field name="name">CONTRATO DE OPCION A COMPRA  DE INMUEBLE FIDE ETAPA 9
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_18_report_py3o" model="ir.actions.report">
+    <field name="name">CONTRATO DE OPCION A COMPRA  DE INMUEBLE FIDE ETAPA 9
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">18</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_18_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+    
+  
+  <record id="contrato_19_py3o_template" model="py3o.template">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 5
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_19_report_py3o" model="ir.actions.report">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 5
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">19</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_19_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+    
+  
+  <record id="contrato_20_py3o_template" model="py3o.template">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 4 
+    </field>
+    <field name="filetype">odt</field>
+  </record>
+
+  <record id="contrato_20_report_py3o" model="ir.actions.report">
+    <field name="name">Contrato de Promesa de Venta de Inmueble Las Cayenas 4 
+    </field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">20</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">odt</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="contrato_20_py3o_template"/>
+    <field name="py3o_template_fallback">
+      /report/no_template.odt
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+  
+</odoo>

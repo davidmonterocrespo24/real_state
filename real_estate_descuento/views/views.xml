@@ -1,0 +1,130 @@
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_descuento" model="ir.sequence">
+            <field name="name">Real Estate - Descuento</field>
+            <field name="code">real.estate.descuento</field>
+            <field name="padding">3</field>
+        </record>
+</data>
+  <data>
+
+    <record model="ir.ui.view" id="discount_list">
+      <field name="name">Descuento</field>
+      <field name="model">real.estate.descuento</field>
+      <field name="arch" type="xml">
+        <tree string="Real Estate - Descuentos" editable="bottom" create="0" edit="0">
+          <field name="sequence" readonly="1"/>
+          <field name="contract_id" readonly="1"/>
+          <field name="partner_id" readonly="1"/>
+          <field name="date"/>
+          <field name="quota_id" readonly="1"/>
+          <field name="name" readonly="1"/>
+          <field name="amount" readonly="1"/>
+          <field name="company_id" readonly="1"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="descuento_action_window">
+      <field name="name">Descuento</field>
+      <field name="res_model">real.estate.descuento</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Descuentos Aplicados"
+              id="menu_descuentos"
+              parent="real_estate.menu_real_estate"
+              action="descuento_action_window"/>
+
+  <report
+      id="descuento"
+      model="real.estate.descuento"
+      string="Descuento"
+      report_type="qweb-pdf"
+      name="real_estate_descuento.descuento_template"
+      file="real_estate_descuento.descuento_template"
+      print_report_name="'Descuento - %s' % (object.partner_id.name)"
+  />
+
+  <template id="descuento_template">
+      <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Descuento</h2>
+
+                        <div class="row">
+                            <div class="col-7 ">
+                                <p t-field="o.contract_id.partner_id"/>
+                                <span>
+                                    <strong>2do Contacto:</strong>
+                                    <span t-field="o.contract_id.partner2_id.name"/>
+                                </span>
+                            </div>
+                            <div class="col-5">
+                                <span>
+                                    <strong>Ref:</strong>
+                                    <span t-field="o.contract_id.name"/>
+                                </span><br/>
+                                <span>
+                                    <strong>Proyecto:</strong>
+                                    <span t-field="o.contract_id.property_id.project_id.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Etapa:</strong>
+                                    <span t-field="o.contract_id.property_id.project_id.etapa"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Precio Apto:</strong>
+                                    <span t-field="o.contract_id.property_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.contract_id.property_currency_id}"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Cnt. Cuota:</strong>
+                                    <span t-field="o.contract_id.num_payments"/>
+                                </span>
+                                <br/>
+                                <div>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>
+                                                <strong>Edificio:</strong>
+                                                <span t-esc="o.contract_id.property_id.edificio"/>
+                                            </td>
+                                            <td>
+                                                <strong>Apto:</strong>
+                                                <span t-esc="o.contract_id.property_id.apto"/>
+                                            </td>
+                                            <td>
+                                                <strong>Mts:</strong>
+                                                <span t-esc="o.contract_id.property_id.mt2"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:50px;">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <strong t-field="o.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="o.amount"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+  </data>
+</odoo>

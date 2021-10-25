@@ -1,0 +1,4 @@
+[submodule "odoo-dominicana/l10n-dominicana"]
+	path = odoo-dominicana/l10n-dominicana
+	url = git@github.com:odoo-dominicana/l10n-dominicana.git
+	branch = 12.0

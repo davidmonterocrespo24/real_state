@@ -17,7 +17,7 @@
               <div class="col-12 col-lg-6 o_setting_box">
                 <div class="o_setting_left_pane"/>
                 <div class="o_setting_right_pane">
-                  <label for="real_estate_journal" string="Journal"/>
+                  <label for="real_estate_journal" string="Diario"/>
 
                   <div class="text-muted">
                     Default Journal for Advance Payment.
@@ -26,6 +26,21 @@
                     <div class="row mt16 ml4">
                       <field name="real_estate_journal"
                              domain="[('type','in',['cash','bank'])]"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 o_setting_box">
+                <div class="o_setting_left_pane"/>
+                <div class="o_setting_right_pane">
+                  <label for="real_estate_product" string="Producto"/>
+
+                  <div class="text-muted">
+                    Producto por Default para Notas de Credito.
+                  </div>
+                  <div class="content-group">
+                    <div class="row mt16 ml4">
+                      <field name="real_estate_product"/>
                     </div>
                   </div>
                 </div>

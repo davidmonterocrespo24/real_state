@@ -1,15 +1,26 @@
 <odoo>
   <data>
-    <record model="ir.ui.view" id="Wizard_set_quota">
-      <field name="name">Set Quota</field>
-      <field name="model">wizard.set_quota</field>
+
+    <record model="ir.ui.view" id="wizard_contract_cancel_view">
+      <field name="name">Wizard Contract Cancel</field>
+      <field name="model">wizard.contract.cancel</field>
       <field name="arch" type="xml">
         <form>
           <group>
-            <field name="quota"/>
+            <group>    
+              <field name="name" required="1"/>
+              <field name="otro_motivo" attrs="{'invisible':[('name','!=', 'Otro')],'required':[('name','=', 'Otro')]}"/>
+              
+              <field name="amount" required="1"/>
+            </group>
+            <group>    
+              <field name="journal_id" required="1" domain="[('type', 'in', ['cash','bank'])]"/>
+              
+            </group>
+            <field name="note" placeholder="Nota para el Pago en Contabilidad."/>
           </group>
           <footer>
-            <button name="set_quota" type="object" string="Confirm"/>
+            <button name="create_nc" type="object" string="Confirm"/>
             or
             <button string="Cancel" special="cancel"/>
           </footer>
@@ -17,13 +28,45 @@
       </field>
     </record>
 
-    <act_window id="lauch_wizard_set_quota"
-            name="Set Quota to"
-            src_model="real.estate.contract"
-            res_model="wizard.set_quota"
-            view_mode="form"
-            target="new"
-            key2="client_action_multi"/>
+    <record model="ir.actions.act_window" id="wizard_contract_cancel_action_window">
+      <field name="name">Wizard Contract Cancel</field>
+      <field name="res_model">wizard.contract.cancel</field>
+      <field name="view_mode">form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="wizard_contract_discount_view">
+      <field name="name">Wizard Contract Discount</field>
+      <field name="model">wizard.contract.discount</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+             <field name="name"/>
+            <div>Introduce el Monto de Descuento en la <b>Moneda/Divisa</b> en que se encuentra el Contrato..</div>
+            <field name="amount"/>
+
+            <div class="alert alert-warning" role="alert" colspan="2">
+                Al darle al boton confirmar las cuotas del contrato tendra un descuento aplicado.
+
+                <p>SI el descuento supera el residual de la cuenta el monto restante del descuento pasara a la cuaota anterior.</p>
+            </div>
+          </group>
+          <footer>
+            <button name="aplicar_descuento" type="object" string="Confirm"/>
+            or
+            <button string="Cancel" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="wizard_contract_discount_action_window">
+        <field name="name">Aplicar Descuento</field>
+        <field name="res_model">wizard.contract.discount</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'record_id' : active_id}</field>
+        <field name="target">new</field>
+    </record>
 
   </data>
 </odoo>

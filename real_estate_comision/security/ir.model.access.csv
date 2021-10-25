@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_config,real.estate.comision.config,model_real_estate_comision_config,real_estate_comision.group_user_comision,1,0,0,0
+user_config_line,real.estate.comision.config.line,model_real_estate_comision_config_line,real_estate_comision.group_user_comision,1,0,0,0
+user_comision,real.estate.comision,model_real_estate_comision,real_estate_comision.group_user_comision,1,1,1,0
+user_comision_line,real.estate.comision.line,model_real_estate_comision_line,real_estate_comision.group_user_comision,1,1,1,1
+user_config_config,real.estate.comision.config,model_real_estate_comision_config,real_estate_comision.group_user_comision_config,1,1,1,1
+user_config_config_line,real.estate.comision.config.line,model_real_estate_comision_config_line,real_estate_comision.group_user_comision_config,1,1,1,1
+user_config_comision,real.estate.comision,model_real_estate_comision,real_estate_comision.group_user_comision_config,1,1,1,1
+user_config_comision_line,real.estate.comision.line,model_real_estate_comision_line,real_estate_comision.group_user_comision_config,1,1,1,1

@@ -19,6 +19,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/real.estate.mod.cons.csv',
+        'data/real.estate.project.mod.cons.csv',
         'views/views.xml',
         'views/res_config_settings.xml',
     ],

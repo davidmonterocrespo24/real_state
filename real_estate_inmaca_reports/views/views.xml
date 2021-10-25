@@ -1,0 +1,96 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="view_partner_form">
+      <field name="name">view_partner_form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+          <page string="Seguimiento Real Estate">
+            <group>
+                  
+              <group>
+                <field name="precalificacion_banco"/>
+                <field name="tipo_contrato"/>
+                <field name="entidad_bancaria"/>
+          
+              </group>
+          
+              <group>
+                <field name="estado_banco"/>
+                <field name="date_seguimiento"/>
+              </group>
+                  
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_tree">
+      <field name="name">view_partner_tree</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+        <field name="email" position="after">
+          <field name="precalificacion_banco"/>
+          <field name="tipo_contrato"/>
+          <field name="entidad_bancaria"/>
+          <field name="estado_banco"/>
+          <field name="date_seguimiento"/>
+        </field>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="wizard_contract_cancel_view">
+      <field name="name">Wizard Contract Cancel</field>
+      <field name="model">wizard.contract.cancel</field>
+      <field name="inherit_id" ref="real_estate.wizard_contract_cancel_view"/>
+      <field name="arch" type="xml">
+		<xpath expr='//form' position='replace'>
+        <form>
+          <group>
+            <group>    
+              <field name="name" required="1"/>
+              <field name="otro_motivo" attrs="{'invisible':[('name','!=', 'Otro')],'required':[('name','=', 'Otro')]}"/>
+              
+              <field name="amount"/>
+              <field name="amount_ing"/>
+            </group>
+            <group>    
+              <field name="journal_id"
+                     attrs="{'invisible': [('amount', '=', 0)],'required': [('amount', '>', 0)],}"
+                     domain="[('type', 'in', ['cash','bank'])]"/>
+              
+            </group>
+            <field name="note" placeholder="Nota para el Pago en Contabilidad."/>
+          </group>
+          <footer>
+            <button name="create_nc" type="object" string="Confirm"/>
+            or
+            <button string="Cancel" special="cancel"/>
+          </footer>
+        </form>
+        </xpath>
+      </field>
+    </record>
+
+<record id="payment_quota_form" model="ir.ui.view">
+    <field name="name">payment quota</field>
+    <field name="model">payment.quota</field>
+    <field name="inherit_id" ref="real_estate.payment_quota_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="after">
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </xpath>
+    </field>
+</record>
+
+  </data>
+</odoo>

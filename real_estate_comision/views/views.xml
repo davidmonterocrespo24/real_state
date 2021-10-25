@@ -1,0 +1,202 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="comision_config_tree">
+      <field name="name">comision_config_tree</field>
+      <field name="model">real.estate.comision.config</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="tipo"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="comision_config_form">
+      <field name="name">comision_config_form</field>
+      <field name="model">real.estate.comision.config</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+                <field name="name"/>
+                <field name="tipo"/>
+                <field name="gerente_id" attrs="{'invisible': [('tipo', '!=', 'gerente')]}"/>
+                <field name="company_id" invisible="1"/>
+            </group>
+            <notebook>
+              <page string="Parametros">
+                <field name="line_ids">
+                    <tree editable="bottom">
+                      <field name="desde"/>
+                      <field name="hasta"/>
+                      <field name="porcent"/>
+                      <field name="config_id" invisible="1"/>
+                    </tree>
+                  </field>
+                <group>
+                  
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="comision_config_action_window">
+      <field name="name">Reglas Comision</field>
+      <field name="res_model">real.estate.comision.config</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Config. Comision"
+              id="config_comision"
+              parent="account.menu_finance_configuration"
+              action="comision_config_action_window"/>
+
+    <record model="ir.ui.view" id="comision_tree">
+      <field name="name">comision_tree</field>
+      <field name="model">real.estate.comision</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="date_from"/>
+          <field name="date_to"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="comision_form">
+      <field name="name">comision_form</field>
+      <field name="model">real.estate.comision</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="action_get_lines" string="Generar" type="object"/>
+            <button name="create_payslip_input" string="Generar Novedad" type="object"/>
+            <button name="state"  widget="statusbar"/>
+          </header>
+          <sheet>
+            <group>
+                <group>
+                    <label for="date_from"/>
+                    <div class="o_row">
+                        <field name="date_from"/> /
+                        <field name="date_to"/>
+                    </div>
+                </group>
+
+                <group>
+                    <field name="payment_date"/>
+<!--                    <field name="tipo" invisible="1"/>-->
+                    <field name="company_id" invisible="1"/>
+                </group>
+
+            </group>
+            <notebook>
+              <page string="Datos">
+                <field name="line_ids" widget="section_and_note_one2many" mode="tree,kanban" >
+                    <tree editable="bottom">
+                      <control>
+                        <create string="Add a line"/>
+                        <create string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                        <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                      </control>
+                      <field name="name"/>
+                      <field name="contract_id"/>
+                      <field name="date"/>
+                      <field name="vendedor_id"/>
+                      <field name="representante_id"/>
+                      <field name="property_amount"/>
+                      <field name="amount"/>
+                      <field name="comision_id" invisible="1"/>
+                      <field name="display_type" invisible="1"/>
+                    </tree>
+                    
+                    <kanban class="o_kanban_mobile">
+                          <field name="amount"/>
+                          <field name="contract_id"/>
+                          <field name="display_type"/>
+                          <templates>
+                              <t t-name="kanban-box">
+                                  <div t-attf-class="oe_kanban_card oe_kanban_global_click {{ record.display_type.raw_value ? 'o_is_' + record.display_type.raw_value : '' }}">
+                                      <t t-if="!record.display_type.raw_value">
+                                          <div class="row">
+                                              <div class="col-8">
+                                                  <strong>
+                                                      <span>
+                                                          <t t-esc="record.contract_id.value"/>
+                                                      </span>
+                                                  </strong>
+                                              </div>
+                                          </div>
+
+                                          <div class="row">
+                                              <div class="col-12 text-muted">
+                                                  <span>
+                                                      Unit Price:
+                                                      <t t-esc="record.amount.value"/>
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </t>
+                                      <t t-if="record.display_type.raw_value === 'line_section' || record.display_type.raw_value === 'line_note'">
+                                          <div class="row">
+                                              <div class="col-12">
+                                                  <span>
+                                                      <t t-esc="record.name.value"/>
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </t>
+                                  </div>
+                              </t>
+                          </templates>
+                      </kanban>
+                  </field>
+                <group>
+                  
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="comision_action_window">
+      <field name="name">Comision</field>
+      <field name="res_model">real.estate.comision</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Comision Real Estate"
+              id="menu_comision"
+              parent="account.menu_finance_reports"
+              action="comision_action_window"/>
+
+    <record model="ir.ui.view" id="contract_form_view">
+      <field name="name">contract_form_view</field>
+      <field name="model">real.estate.contract</field>
+      <field name="inherit_id" ref="real_estate.contract_form_view"/>
+      <field name="arch" type="xml">
+		<xpath expr="//field[@name='vendedor_id']" position="attributes">
+			<attribute name="invisible">1</attribute>
+		</xpath>
+		
+        <field name="vendedor_id" position="after">
+        	<field name="contacto_id" string='Vendedor'/>
+        </field>
+        <field name="representante_id" position="after">
+			<separator string="Seguimiento"/>
+          <field name="procedencia_fondo"/>
+          <field name="poder_consular"/>
+          <field name="formalizacion"/>
+          <field name="cumplimiento"/>
+          <field name="completado"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

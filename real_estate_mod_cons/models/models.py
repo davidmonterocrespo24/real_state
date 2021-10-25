@@ -16,4 +16,16 @@ class RealEstateModCons(models.Model):
 class RealEstateProperty(models.Model):
     _inherit = 'real.estate.property'
 
-    mod_cons_ids = fields.Many2many('real.estate.mod.cons', string='Mod Cons')
+    mod_cons_ids = fields.Many2many('real.estate.mod.cons', string='Comodidades')
+
+class RealEstateProjectModCons(models.Model):
+    _name = 'real.estate.project.mod.cons'
+    _description = 'Real Estate Project Mod Cons'
+
+    name = fields.Char()
+
+
+class RealEstateProject(models.Model):
+    _inherit = 'real.estate.project'
+
+    mod_cons_ids = fields.Many2many('real.estate.project.mod.cons', string='Comodidades')

@@ -9,7 +9,13 @@
                 <div class="content-group" attrs="{'invisible': [('module_real_estate_mod_cons', '=', False)]}">
                     <div class="mt16">
                         <button name="%(mod_cons_action_window)d" icon="fa-arrow-right" type="action"
-                                string="Configure Mod Cons" class="btn-link"/>
+                                string="Comodidades de las Propiedades" class="btn-link"/>
+                        <button name="%(project_mod_cons_action_window)d" icon="fa-arrow-right" type="action"
+                                string="Comodidades de los Projectos" class="btn-link"/>
+                    </div>
+                    <div class="mt16">
+                        <button name="%(project_mod_cons_action_window)d" icon="fa-arrow-right" type="action"
+                                string="Comodidades de los Projectos" class="btn-link"/>
                     </div>
                 </div>
             </div>

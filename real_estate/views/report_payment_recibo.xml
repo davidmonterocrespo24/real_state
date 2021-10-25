@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_mediahoja" model="report.paperformat">
+        <field name="name">Media Hoja</field>
+        <!-- <field name="default" eval="True"/> -->
+        <field name="format">custom</field>
+        <field name="page_height">139</field>
+        <field name="page_width">279</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">15</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <report id="payment_recibo_report"
+            model="payment.quota"
+            string="Recibo Cuotas"
+            report_type="qweb-pdf"
+            name="real_estate.payment_recibo"
+            file="real_estate.payment_recibo"/>
+
+    <template id="payment_recibo">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="real_estate.custom_layout">
+
+                    <t t-set="title_page" t-value="&quot;RECIBO DE PAGO.&quot;"/>
+                    <t t-set="title_page_extra" t-value="'No. Recibo: {}'.format(o.name)"/>
+                    <div class="page" style="font-size:14px;">
+                        <table class="table table-sm mt32">
+                            <tr>
+                                 <td colspan="2">
+                                    <b>Estado:</b>
+                                    <span t-if="o.state=='draft'">
+                                        Borrador
+                                    </span>
+                                    <span t-if="o.state=='cancel'">
+                                        Cancelado
+                                    </span>
+                                    <span t-if="o.state=='done'">
+                                        Relizado
+                                    </span> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b>ID Cliente:</b>
+                                    <span t-esc="o.partner_id.ref or o.partner_id.id"/>
+                                    <span style="display:inline-block; width:100px;" />
+                                    <span colspan="">
+                                        <b>Contrato:</b>
+                                        <span t-field="o.contract_id"/>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <b>Fecha:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b>Cliente:</b>
+                                    <span t-field="o.contract_id.partner_id"/>
+                                    <br/>
+                                    <b>Co-comprador:</b>
+                                    <span t-field="o.contract_id.partner2_id"/>
+                                    <br/>
+                                    <b>Apoderado:</b>
+                                    <span t-field="o.contract_id.apoderado"/>
+                                </td>
+                                <td t-if="o.date_transaction">
+                                    <b>Fecha del Dp/Trf.:</b>
+                                </td>
+                                <td t-if="o.date_transaction">
+                                    <span t-field="o.date_transaction"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table class="table table-sm table-condensed">
+                                        <tr>
+                                            <td>
+                                                <b>Edf.</b>
+                                                <t t-esc="o.contract_id.property_id.edificio"/>
+
+                                            </td>
+                                            <td>
+                                                <b>Apto.</b>
+                                                <t t-esc="o.contract_id.property_id.apto"/>
+
+                                            </td>
+                                            <td>
+                                                <b>Mts.</b>
+                                                <t t-esc="o.contract_id.property_id.mt2"/>
+
+                                            </td>
+                                            <td>
+                                                <b>Proyecto.</b>
+                                                <t t-esc="o.contract_id.property_id.project_id.name"/>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <b>Cuotas en:</b><span t-field="o.currency_id"/>
+                                </td>
+                                <td><t t-if="o.tasa > 1">
+                                    <b>Tasa:</b><span t-field="o.tasa"/>
+                                </t>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>
+                                        <b>La suma de:</b>
+                                        <t t-esc="o.amount_word(o.monto_divisa)"/>
+                                    </p>
+                                </td>
+                                <td>
+                                    <span>
+                                        <span t-field="o.currency_payment_id.symbol"/>
+                                        <span t-esc="'{:,.2f}'.format(o.monto_divisa)"/>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <strong>Forma de Pago:</strong>
+                                        <span t-field="o.forma_pago"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-sm table-striped" style="font-size:10px;">
+                            <thead>
+                                <tr>
+                                    <th>Cuota/Descripcion</th>
+                                    <th class="text-right">Monto Pagado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr t-foreach="o.mora_ids" t-as="e">
+                                    <td>
+                                        <span t-esc="e.name"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-esc="'{:,.2f}'.format(e.amount)"/>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o.quota_ids" t-as="c">
+                                    <td>
+                                        <span t-esc="c.quota_id.name"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-esc="'{:,.2f}'.format(c.to_pay)"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tr>
+                                <td>
+                                    <b>Total</b>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{:,.2f}'.format(o.amount)"/>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <t t-call="real_estate.firma_footer_layout">
+                            <t t-set="concepts" t-value="['Entregado por', 'Recibido por']"/>
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report id="payment_recibo_report_media_carta"
+            model="payment.quota"
+            string="Recibo Cuotas (Media Hoja)"
+            report_type="qweb-pdf"
+            name="real_estate.payment_recibo_media_carta"
+            file="real_estate.payment_recibo_media_carta"
+            paperformat="real_estate.paperformat_mediahoja"/>
+
+    <template id="payment_recibo_media_carta">
+        <t t-call="web.html_container">
+            <t t-call="real_estate.payment_recibo"/>
+        </t>
+    </template>
+
+</odoo>

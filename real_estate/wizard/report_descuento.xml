@@ -1,0 +1,96 @@
+<odoo>
+    <report
+        id="report_descuento"
+        model="real.estate.contract"
+        string="Descuento"
+        report_type="qweb-pdf"
+        name="real_estate.descuento"
+        file="real_estate.descuento"
+    />
+
+    <template id="descuento">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Descuento</h2>
+
+                        <div class="row">
+                            <div class="col-7 ">
+                                <p t-field="o.partner_id" />
+                                <span>
+                                    <strong>2do Contacto:</strong>
+                                    <span t-field="o.partner2_id.name"/>
+                                </span>
+                            </div>
+                            <div class="col-5">
+                                <span>
+                                    <strong>Ref:</strong>
+                                    <span t-field="o.name"/>
+                                </span><br/>
+                                <span>
+                                    <strong>Proyecto:</strong>
+                                    <span t-field="o.property_id.project_id.name"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Etapa:</strong>
+                                    <span t-field="o.property_id.project_id.etapa"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Precio Apto:</strong>
+                                    <span t-field="o.property_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
+                                </span>
+                                <br/>
+                                <span>
+                                    <strong>Cnt. Cuota:</strong>
+                                    <span t-field="o.num_payments"/>
+                                </span>
+                                <br/>
+                                <div>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>
+                                                <strong>Edificio:</strong>
+                                                <span t-esc="o.property_id.edificio"/>
+                                            </td>
+                                            <td>
+                                                <strong>Apto:</strong>
+                                                <span t-esc="o.property_id.apto"/>
+                                            </td>
+                                            <td>
+                                                <strong>Mts:</strong>
+                                                <span t-esc="o.property_id.mt2"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:50px;">
+
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <strong t-field="o.discount_description"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="total_descuento" t-value="0"/>
+
+                                        <t t-foreach="o.quota_ids" t-as="l">
+                                            <t t-set="total_descuento" t-value="total_descuento + l.discount"/>
+                                        </t>
+                                        <span t-esc="total_descuento"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

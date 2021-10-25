@@ -15,96 +15,91 @@
       <t t-foreach="docs" t-as="o">
         <t t-call="web.external_layout">
           <div class="page">
-            <h2>Information Payments Details</h2>
+            <h2>Informacion de Pagos</h2>
 
             <div class="row mt32 mb32">
               <div class="col-auto">
-                <p><strong>Partner: </strong>
-                    <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                    <div t-if="o.partner_id.vat" class="mt16">
-                      <strong>NIF:</strong> <span t-field="o.partner_id.vat"/></div>
+                <p>
+                  <strong>Comprador:</strong>
+                  <address t-field="o.partner_id"
+                           t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                  <div t-if="o.partner_id.vat" class="mt16">
+                    <strong>RNC/Ced./Pasaporte:</strong>
+                    <span t-field="o.partner_id.vat"/>
+                  </div>
+                </p>
+                <p>
+                  <strong>Co-Comprador:</strong>
+                  <address t-field="o.partner2_id"
+                           t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                  <div t-if="o.partner2_id.vat" class="mt16">
+                    <strong>RNC/Ced./Pasaporte:</strong>
+                    <span t-field="o.partner_id.vat"/>
+                  </div>
                 </p>
               </div>
 
               <div class="col-auto">
                 <p>
-                  <strong><span t-esc="o.property_id.property_type.name"/>:
+                  <strong>Propiedad:
                   </strong>
                   <span t-field="o.property_id"/>
                 </p>
                 <p>
-                  <strong>Property Value:</strong>
-                  <span t-field="o.property_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
+                  <strong>Valor de la Propiedad</strong>
+                  <span t-field="o.property_amount"
+                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
                 </p>
               </div>
 
               <div class="col-auto">
                 <p>
-                  <strong>Date Start:</strong>
+                  <strong>Fecha de Inicio</strong>
                   <span t-field="o.date_start"/>
                 </p>
                 <p>
-                  <strong>Num. Payments:</strong>
+                  <strong>Num. Cuotas:</strong>
                   <span t-field="o.num_payments"/>
                 </p>
                 <p>
-                  <strong>Remaining</strong>
-                  <span t-field="o.remaining" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
+                  <strong>Monto Adeudado</strong>
+                  <span t-field="o.remaining"
+                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.property_currency_id}"/>
                 </p>
               </div>
             </div>
 
 
-            <h3>Paymend Distribution</h3>
+            <h3>Distribucion de Pagos</h3>
             <table class="table table-sm mt32">
               <thead>
                 <tr>
-                  <th>Name/Reference</th>
-                  <th>Date</th>
-                  <th>Amount Paid</th>
-                  <th>Amount Remaining</th>
-                  <th>State</th>
+                  <th>Cuota/Descripcion</th>
+                  <th>Fecha Vencimiento</th>
+                  <th class="text-right">Monto Cuota</th>
+                  <th class="text-right">Monto Pagado</th>
+                  <th class="text-right">Residual</th>
                 </tr>
               </thead>
               <tbody>
-                <t t-foreach="o.quota_ids" t-as="q">
+                <t t-foreach="o.quota_ids" t-as="c">
                   <tr>
                     <td>
-                      <span t-field="q.name"/>
+                      <span t-field="c.name"/>
                     </td>
                     <td>
-                      <span t-field="q.date"/>
-                      -
-                      <span t-field="q.date_due"/>
+                      <span t-field="c.date_due"/>
                     </td>
                     <td class="text-right">
-                      <span t-field="q.amount_paid"/>
+                      <span t-field="c.amount"/>
                     </td>
                     <td class="text-right">
-                      <span t-field="q.residual"/>
+                      <span t-field="c.amount_paid"/>
                     </td>
                     <td class="text-right">
-                      <span t-field="q.state"/>
+                      <span t-field="c.residual"/>
                     </td>
                   </tr>
-
-                  <tr style=" font-size:small;" t-foreach="get_invoice_payments.get(q.id, [])" t-as="p">
-
-                    <td>
-                      <span class="ml-3" t-esc="p.get('name', '')"/>
-                    </td>
-                    <td class="text-center">
-                      <span t-esc="p.get('date', '')"/>
-                    </td>
-                    <td class="text-right">
-                      <t t-set="currency" t-value="p.get('currency', '')"/>
-                      <span t-esc="p.get('amount', '')"
-                            t-esc-options='{"widget": "monetary", "display_currency": currency}'/>
-                    </td>
-                    <td class="text-center" colspan="2">Ref del Pago</td>
-                    <!--<td t-esc=""/>-->
-                  </tr>
-
                 </t>
               </tbody>
             </table>
@@ -114,4 +109,29 @@
       </t>
     </t>
   </template>
+
+
+  <record id="documentacion_template_py3o" model="py3o.template">
+    <field name="name">Documentacion</field>
+    <field name="filetype">ods</field>
+
+  </record>
+
+  <record id="documentacion_report_py3o" model="ir.actions.report">
+    <field name="name">Documentacion</field>
+    <field name="type">ir.actions.report</field>
+    <field name="model">real.estate.contract</field>
+    <field name="report_name">real_estate_documentacion</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">ods</field>
+    <field name="module">real_estate</field>
+    <field name="py3o_template_id" ref="documentacion_template_py3o"/>
+    <field name="py3o_template_fallback">
+      /report/real_estate_checklist_auditoria_cumplimiento2.ods
+    </field>
+    <field name="binding_model_id" ref="real_estate.model_real_estate_contract"/>
+    <field name="binding_type">report</field>
+  </record>
+
+
 </odoo>
